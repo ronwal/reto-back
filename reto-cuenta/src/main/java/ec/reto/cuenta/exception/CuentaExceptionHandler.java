@@ -1,4 +1,4 @@
-package ec.reto.persona.exception;
+package ec.reto.cuenta.exception;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -18,7 +18,7 @@ import java.util.Map;
 
 @Slf4j
 @ControllerAdvice
-public class PersonaExceptionHandler {
+public class CuentaExceptionHandler {
 
     /**
      * Handles MangasException when a requested resource is not found.
@@ -27,7 +27,7 @@ public class PersonaExceptionHandler {
      * @param request the WebRequest in which the exception occurred
      * @return a ResponseEntity containing a map with error details, including the HTTP status as NOT_FOUND
      */
-    @ExceptionHandler({PersonaException.class, NoResourceFoundException.class, HttpRequestMethodNotSupportedException.class,
+    @ExceptionHandler({CuentaException.class, NoResourceFoundException.class, HttpRequestMethodNotSupportedException.class,
             MethodArgumentNotValidException.class})
     public ResponseEntity<Map<String, Object>> handleResourceNotFoundException(final Exception ex, final WebRequest request) {
         return handleException(ex, request, HttpStatus.NOT_FOUND);
@@ -66,14 +66,14 @@ public class PersonaExceptionHandler {
     }
 
     private HttpStatus determineHttpStatus(final Exception ex) {
-        return (ex instanceof PersonaException || ex instanceof NoResourceFoundException || ex instanceof HttpRequestMethodNotSupportedException
+        return (ex instanceof CuentaException || ex instanceof NoResourceFoundException || ex instanceof HttpRequestMethodNotSupportedException
                 || ex instanceof MethodArgumentNotValidException)
                 ? HttpStatus.NOT_FOUND
                 : HttpStatus.INTERNAL_SERVER_ERROR;
     }
 
     private String determineMessage(final Exception ex) {
-        if (ex instanceof PersonaException || ex instanceof NoResourceFoundException || ex instanceof HttpRequestMethodNotSupportedException) {
+        if (ex instanceof CuentaException || ex instanceof NoResourceFoundException || ex instanceof HttpRequestMethodNotSupportedException) {
             return ex.getMessage();
         } else if (ex instanceof MethodArgumentNotValidException methodArgumentException) {
             List<String> errors = new ArrayList<>();
@@ -84,7 +84,7 @@ public class PersonaExceptionHandler {
             });
             return errors.toString();
         } else {
-            return "Por favor verifique la información ingresada.";
+            return "Por favor verifique la informacion ingresada.";
         }
     }
 }

@@ -1,4 +1,4 @@
-package ec.reto.persona.exception;
+package ec.reto.cuenta.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

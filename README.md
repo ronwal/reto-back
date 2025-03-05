@@ -17,8 +17,8 @@ Antes de ejecutar el proyecto, asegúrate de tener instalado:
 Si aún no tienes el código en tu máquina, clónalo con:
 
 ```sh
-git clone https://github.com/tu-usuario/tu-repositorio.git
-cd tu-repositorio
+git clone https://github.com/ronwal/reto-back.git
+cd reto-back
 ```
 
 ## 📌 **3. Compilar el proyecto**
@@ -33,7 +33,45 @@ Para desplegar los servicios con Docker, usa:
 docker-compose up --build -d
 ```
 
-## 📌 **5. bajar los servicios**
+## 📌 **5. probar los servicios**
+Curls de los servicios:
+* Crear Cliente:
+``` sh
+curl --location 'http://127.0.0.1:8081/reto-persona/clientes' \
+--header 'Content-Type: application/json' \
+--data '{
+"nombre": "Carlos García",
+"clienteId": "C456",
+"password": "abcd",
+"estado": true
+}'
+```
+* Crear Cuenta:
+``` sh
+curl --location 'http://127.0.0.1:8082/reto-cuenta/cuentas' \
+--header 'Content-Type: application/json' \
+--header 'X-API-Key: {{token}}' \
+--data '{
+  "numeroCuenta": "123456",
+  "tipoCuenta": "Ahorro",
+  "saldoInicial": 1000.0,
+  "estado": true,
+  "clienteId": 1
+}'
+```
+* Registra Movimiento:
+``` sh
+curl --location 'http://127.0.0.1:8082/reto-cuenta/movimientos/1' \
+--header 'Content-Type: application/json' \
+--header 'X-API-Key: {{token}}' \
+--data '{
+    "tipoMovimiento": "Depósito",
+    "valor": 3.0
+}'
+```
+
+
+## 📌 **6. bajar los servicios**
 Para desplegar los servicios con Docker, usa:
 
 ``` sh
